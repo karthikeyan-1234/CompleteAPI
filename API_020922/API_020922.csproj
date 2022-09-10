@@ -25,8 +25,4 @@
 	<PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Misc\" />
-  </ItemGroup>
-
 </Project>

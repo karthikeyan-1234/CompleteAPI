@@ -1,4 +1,5 @@
-﻿using API_020922.Models;
+﻿using API_020922.Misc;
+using API_020922.Models;
 using API_020922.Models.DTOs;
 using API_020922.Services;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,7 @@ namespace API_020922.Controllers
     {
         IExpenseService expenseService;
         IStringLocalizer<ExpenseCategoryController> localizer;
+
 
         public ExpenseCategoryController(IExpenseService expenseService,IStringLocalizer<ExpenseCategoryController> localizer)
         {
@@ -32,6 +34,9 @@ namespace API_020922.Controllers
         public async Task<IActionResult> GetAllExpenseCategories()
         {
             IList<ExpenseCategoryDTO> res = (IList<ExpenseCategoryDTO>) await expenseService.GetAllExpenseCategories();
+
+            //LocalizerHelper<ExpenseCategoryDTO> test = new LocalizerHelper<ExpenseCategoryDTO>();
+            //test.Localize(localizer, res);
 
             for (int i = 0; i < res.Count; i++)
             {

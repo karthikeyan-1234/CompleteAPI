@@ -20,7 +20,7 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddXmlSerializerFormatters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -48,6 +48,7 @@ CorsPolicy policy = cbuilder.Build();
 builder.Services.AddCors(opt => {
     opt.AddPolicy("MyCors", policy);
 });
+
 
 
 var app = builder.Build();

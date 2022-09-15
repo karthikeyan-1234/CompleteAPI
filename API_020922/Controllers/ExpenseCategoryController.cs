@@ -48,8 +48,6 @@ namespace API_020922.Controllers
 
             await hub.Clients.Group("MyGroup").SendAsync("Receive", "Test");
 
-            //await hub.Clients.All.SendAsync("Receive", "Test");
-
             return Ok(res);
         }
 

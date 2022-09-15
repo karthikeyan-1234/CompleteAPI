@@ -1,9 +1,11 @@
-﻿using API_020922.Misc;
+﻿using API_020922.Hubs;
+using API_020922.Misc;
 using API_020922.Models;
 using API_020922.Models.DTOs;
 using API_020922.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -15,12 +17,13 @@ namespace API_020922.Controllers
     {
         IExpenseService expenseService;
         IStringLocalizer<ExpenseCategoryController> localizer;
+        IHubContext<InformHub> hub;
 
-
-        public ExpenseCategoryController(IExpenseService expenseService,IStringLocalizer<ExpenseCategoryController> localizer)
+        public ExpenseCategoryController(IExpenseService expenseService,IStringLocalizer<ExpenseCategoryController> localizer,IHubContext<InformHub> hub)
         {
             this.expenseService = expenseService;
             this.localizer = localizer;
+            this.hub = hub;
         }
 
         [HttpPost("AddExpenseCategory",Name = "AddExpenseCategory")]
@@ -42,6 +45,10 @@ namespace API_020922.Controllers
             {
                 res[i].name = localizer[res[i].name];
             }
+
+            await hub.Clients.Group("MyGroup").SendAsync("Receive", "Test");
+
+            //await hub.Clients.All.SendAsync("Receive", "Test");
 
             return Ok(res);
         }
